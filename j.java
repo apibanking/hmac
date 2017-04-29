@@ -8,7 +8,7 @@ class J {
 
   public static void main(String[] args) {
     String req = "VYSKEAZZ0011110002h2wb08";
-    String salt = "6b1d4458708e27252e5733a65abfe89fa2d312304251c5fa8c0065a552ba9865";
+    String salt = args[0];
 
     System.out.println("body " + req + " encrypted: " + encrypt(salt, req));
   }
