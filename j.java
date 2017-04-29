@@ -21,8 +21,16 @@ class J {
        s += salt[i];
     }
 
-    s += (cal.get(Calendar.DAY_OF_MONTH) + cal.get(Calendar.MONTH) + cal.get(Calendar.YEAR)); 
+    System.out.println("salt " + Integer.toString(s));
+    System.out.println("salt " + Integer.toString(cal.get(Calendar.DAY_OF_MONTH)));
+    System.out.println("salt " + Integer.toString(cal.get(Calendar.MONTH)));
+    System.out.println("salt " + Integer.toString(cal.get(Calendar.YEAR)));
 
+    s += cal.get(Calendar.DAY_OF_MONTH);
+    s += cal.get(Calendar.MONTH) + 1;
+    s += cal.get(Calendar.YEAR); 
+
+    System.out.println("salt " + Integer.toString(s));
     return Integer.toString(s);
   }
 
@@ -30,7 +38,9 @@ class J {
  
     try {
      // create value to hash
-     String str = inStr + getSalt(salt.getBytes("US-ASCII")) + salt;
+     String valueAndSalt = inStr + salt;
+     System.out.println(valueAndSalt);
+     String str = inStr + getSalt(valueAndSalt.getBytes("US-ASCII")) + salt;
 
      // compute SHA256 hash
      MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -39,7 +49,7 @@ class J {
      // get base64
      String hash2 = DatatypeConverter.printHexBinary(hash);
 
-     return hash2;
+     return hash2.toLowerCase();
  
     } catch (Exception e) {
        return null;
