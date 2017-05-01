@@ -7,10 +7,10 @@ class J {
   private final static String HMAC_SHA1_ALGORITHM = "HmacSHA1";
 
   public static void main(String[] args) {
-    String req = "VYSKEAZZ0011110002h2wb08";
-    String salt = args[0];
+    String req = args[0];
+    String salt = args[1];
 
-    System.out.println("body " + req + " encrypted: " + encrypt(salt, req));
+    System.out.println("value: " + req + " salt: " + salt + " encrypted: " + encrypt(salt, req));
   }
 
   private static String getSalt(byte[] salt) {
@@ -21,16 +21,10 @@ class J {
        s += salt[i];
     }
 
-    System.out.println("salt " + Integer.toString(s));
-    System.out.println("salt " + Integer.toString(cal.get(Calendar.DAY_OF_MONTH)));
-    System.out.println("salt " + Integer.toString(cal.get(Calendar.MONTH)));
-    System.out.println("salt " + Integer.toString(cal.get(Calendar.YEAR)));
-
     s += cal.get(Calendar.DAY_OF_MONTH);
     s += cal.get(Calendar.MONTH) + 1;
     s += cal.get(Calendar.YEAR); 
 
-    System.out.println("salt " + Integer.toString(s));
     return Integer.toString(s);
   }
 
@@ -39,7 +33,6 @@ class J {
     try {
      // create value to hash
      String valueAndSalt = inStr + salt;
-     System.out.println(valueAndSalt);
      String str = inStr + getSalt(valueAndSalt.getBytes("US-ASCII")) + salt;
 
      // compute SHA256 hash
